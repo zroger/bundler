@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * @file
+ * Tests for bundler.module.
+ */
+
+/**
+ * Bundler tests.
+ */
+class BundlerTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Bundler tests',
+      'description' => 'Ensure that the Bundler API for managing fields is working properly.',
+      'group' => 'Bundler',
+    );
+  }
+
+  function setUp() {
+    parent::setUp('bundler', 'bundler_tests');
+
+    $bundle = new bundler_tests__bundle_factory();
+    $bundle->save();
+  }
+
+  public function testFieldInstalled() {
+    $instance = field_info_instance('node', 'body', 'bundler_test');
+    $this->assertTrue(!empty($instance), t('Body field instance found on bundler_test node bundle.'));
+  }
+}

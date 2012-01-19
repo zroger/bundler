@@ -1,0 +1,10 @@
+name = Bundler tests
+description = "Support module for Bundler tests."
+package = Testing
+core = 7.x
+files[] = bundler_tests.bundler.inc
+dependencies[] = bundler
+
+;hidden = TRUE
+
+

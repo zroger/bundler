@@ -1,0 +1,7 @@
+name = Bundler
+description = Simple API for managing entity bundles.
+core = 7.x
+
+files[] = inc/bundle.inc
+files[] = inc/field.inc
+files[] = tests/bundler.test

@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Implements hook_node_info().
+ */
+function bundler_tests_node_info() {
+  $types = array();
+
+  $types['bundler_test'] = array(
+    'name' => t('Bundler Test'),
+    'base' => 'node_content',
+    'description' => t('Test content type for Bundler module.'),
+    'has_title' => TRUE,
+    'title_label' => t('Title'),
+  );
+
+  return $types;
+}
+

@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file
+ * Bundler module.
+ */
+
+function bundler_field_factory($field_name) {
+  $factories = _bundler_get_field_factories(TRUE);
+
+  if (!isset($factories[$field_name])) {
+    return FALSE;
+  }
+
+  return new $factories[$field_name];
+}
+
+function _bundler_get_field_factories($reset = FALSE) {
+  static $factories;
+
+  if (!empty($reset) || !isset($factories)) {
+    $factories = array();
+
+    // Field classes should be included in one of two files:
+    // - [module]/[module].bundler.inc
+    // - [module]/inc/bundler.inc
+    module_load_all_includes('bundler.inc');
+    module_load_all_includes('inc', 'includes/bundler');
+
+    $classes = get_declared_classes();
+    foreach ($classes as $class) {
+      if (class_exists($class) && is_subclass_of($class, 'bundler_field_factory')) {
+        $config = $class::field_config();
+        $factories[$config['field_name']] = $class;
+      }
+    }
+  }
+
+  return $factories;
+}
